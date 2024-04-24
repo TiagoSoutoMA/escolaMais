@@ -1,0 +1,192 @@
+/*INICIO HOME*/
+
+.header {
+    background-color: #E8E9EA;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 56px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+}
+
+.navigation a {
+    text-decoration: none;
+}
+
+.navigation a:hover p{
+    color: #4D73F8;
+}
+
+.navItensSpace {
+    margin-right: 32px;
+}
+
+.navItemClicado {
+    color: #4D73F8;
+    font-family: "Chelsea Market", system-ui;
+}
+
+.navItem {
+    color: #616161;
+    font-family: "Chelsea Market", system-ui;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+}
+
+.buttons button {
+    font-family: "Chelsea Market", system-ui;
+    border-radius: 5px;
+}
+
+.buttonLeft {
+    background-color: #4D73F8;
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    margin-right: 25px;
+}
+
+.buttonRight {
+    color: #4D73F8;
+    border: 2px solid #4D73F8;
+    padding: 10px 15px;
+}
+
+/*FIM HOME*/
+
+/*INICIO SECTION1 (WALLPAPER)*/
+
+.wallpaper {
+    background-image: url('../../assets/img/Escola+.jpg');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    height: 719px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    padding: 5px 56px;
+}
+
+.title {
+    font-family: "Chelsea Market", system-ui;
+    font-size: 38px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.destaque {
+    color: #616161;
+}
+
+.subtitle {
+    font-family: "Chelsea Market", system-ui;
+    color:#616161;
+    font-size: 15px;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.buttonSection {
+    background-color: #4D73F8;
+    color: white;
+    border: none;
+    padding: 15px 32px;
+    border-radius: 5px;
+}
+
+/*FIM SECTION1 (WALLPAPER)*/
+
+/*INICIO SECTION2 (INFORMATION)*/
+
+.information {
+    display: block;
+    margin-top: 150px;
+    padding: 5px 56px;
+    justify-content: space-between;
+}
+
+.titles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+}
+
+.titleSec2 {
+    font-family: "Chelsea Market", system-ui;
+    color:#616161;
+}
+
+.titleSec2Space {
+    margin-bottom: 30px;
+    font-size: 30px;
+}
+
+.subtitleSec2 {
+    font-family: "Chelsea Market", system-ui;
+    color:#616161;
+}
+
+.alignBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box {
+    background-color: #4D73F8;
+    width: 1100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 50px;
+}
+
+.informationBox {
+    display: block;
+    width: 400px;
+}
+
+.titleBox {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.subtitleBox {
+    text-align: justify;
+}
+
+.imageBox {
+    display: block;
+    justify-content: center;
+}
+
+.testeImg {
+    width: 300px;
+    height: 300px;
+    background-color: black;
+}
+
+.positionButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*FIM SECTION2 (INFORMATION)*/
