@@ -29,24 +29,6 @@ function cadastrarUsuario(dadosUsuario) {
 }
 
 const Register = () => {
-  /*const [formData, setFormData] = useState({
-    nome: '',
-    sobrenome: '',
-    cpf: '',
-    email: '',
-    confirmarEmail: '',
-    nomeEscola: '',
-    senha: '',
-    confirmarSenha: '',
-    cargo: '',
-    endereco: '',
-    numero: '',
-    cep: '',
-    cnpj: '',
-    sexo: '',
-    plano: ''
-  });*/
-
   const [email, setEmail] = useState();
   const [confirmarEmail, setConfirmarEmail] = useState();
   const [password, setPassword] = useState();
