@@ -1,5 +1,4 @@
 import React from 'react';
-import LoginStyle from './Login.module.css'
 import Email from '../../assets/img/icons8-gmail-novo-48.png'
 
 const Login = () => {

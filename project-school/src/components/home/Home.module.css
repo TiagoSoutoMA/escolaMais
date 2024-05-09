@@ -59,6 +59,7 @@
     border: none;
     padding: 12px 32px;
     margin-right: 25px;
+    cursor: pointer;
 }
 
 .buttonRight {
@@ -109,6 +110,7 @@
     border: none;
     padding: 15px 32px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 /*FIM SECTION1 (WALLPAPER)*/
@@ -212,6 +214,79 @@
 }
 
 /*FIM SECTION2 (INFORMATION)*/
+
+/*INICIO SECTION3 (FORM FALE CONOSCO)*/
+
+.secForm {
+    background-color: #000000;
+    padding: 300px 20px 20px 20px;
+    border-radius: 5px;
+}
+
+.spaceForm {
+    background-color: #ffffff;  
+    border-radius: 5px;
+    margin: 100px 300px;
+    padding: 50px;
+    text-align: center; 
+}
+
+.fontWord {
+    margin: 0px;
+    text-align: center;
+    font-family: "Chelsea Market", system-ui;
+}
+
+.formSec {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formDiv {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    border-radius: 5px;
+}
+
+.formSpan {
+    font-family: "Chelsea Market", system-ui;
+    font-size: 20px;
+}
+
+.formLabel {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.formInput {
+    flex: 2;
+    padding: 5px;
+    border: 1px solid;
+    border-color: #4D73F8;
+    border-radius: 5px; 
+    width: 100%;
+    font-size: 20px;
+    font-family: "Chelsea Market", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    outline: none;
+    margin-top: 10px;
+}
+
+.formButton {
+    background-color: #4D73F8;
+    color: white;
+    border: none;
+    padding: 15px 60px;
+    font-family: "Chelsea Market", system-ui;
+    border-radius: 5px;
+}
+
+
+/*FIM SECTION3 (FORM FALE CONOSCO)*/
 
 /*INICIO FOOTER*/
 
