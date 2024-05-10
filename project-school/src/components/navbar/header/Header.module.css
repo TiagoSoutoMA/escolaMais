@@ -1,0 +1,66 @@
+.sidebar {
+    position: fixed;
+    height: 65px;
+    display: flex;
+    background-color: #EFEFEF; 
+    box-shadow:  10px ;
+    top: 0;
+    left: 0;
+    right: 0;
+   
+}
+
+.svg {
+    position: fixed;
+    color: #4d73f8;
+    font-size: 30px;
+    margin-top: 20px;
+    margin-left: 12px;
+    cursor: pointer;
+  }
+
+.sidebarLateral {
+    position: fixed;
+    width: 60px;
+    height: 100%;
+    top: 65px;
+    left: 0;
+    background-color: #EFEFEF; 
+    box-shadow: 0 5px rgba(0, 0, 0, 0.1); 
+    display: flex;
+    flex-direction: column;
+}
+
+.icones{
+   display: flex;
+   flex-direction: column;
+   padding: 10px;
+   font-size: 30px;
+   margin-top: 30px;
+   gap: 36.5px;
+   color: #4d73f8;
+   cursor: pointer;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    width: 50px; 
+    height: 50px; 
+    border-radius: 50%; 
+    background-color: #EFEFEF; 
+    margin-left: 1600px;
+    margin-top: 7px;
+    border: 1px solid black 
+}
+
+.iconProfile{
+    font-size: 20px;
+    margin-top: 9px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.usuario{
+    margin-left: 30px;
+}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {  FaEyeSlash } from 'react-icons/fa';
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import RegisterStyle from './Register.module.css';
+import Header from '../navbar/header/Header';
 
 function cadastrarUsuario(dadosUsuario) {
   const url = 'http://localhost:8080/users/create';
@@ -90,6 +91,7 @@ const Register = () => {
 
   return (
 
+   <>
     <div className={RegisterStyle.registerBody}>  
       <h2 className={RegisterStyle.registerH2}>Cadastro</h2>
       <form onSubmit={handleSubmit}>     
@@ -347,6 +349,7 @@ const Register = () => {
         <button type="submit" className={RegisterStyle.registerBotao}>Cadastrar</button>      
       </form>
     </div>   
+    </>
   );
 };
 
