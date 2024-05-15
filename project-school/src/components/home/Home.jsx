@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Logo from '../../assets/img/Logo2.png';
+import React, { useState, useEffect } from 'react';
+import Logo from '../../assets/img/logoEscola+.png';
 import HomeStyle from './Home.module.css';
 import { Link } from 'react-router-dom';
 
@@ -10,6 +10,28 @@ const Home = () => {
     const handleNavItemClick = (item) => {
         setActiveNavItem(item);
     };
+
+    function handleScroll() {
+        const sections = document.querySelectorAll('section'); 
+        const scrollPosition = window.scrollY + window.innerHeight / 2; 
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight; 
+
+            if (scrollPosition >= sectionTop && scrollPosition <= sectionTop + sectionHeight) {
+                setActiveNavItem(section.id); 
+            }
+        });
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []); 
 
     const handleImgClick = (item) => {
         setActiveImgItem(item);
@@ -62,19 +84,18 @@ const Home = () => {
                         <a href="/"><img src={Logo} alt="" /></a>
                     </div>
                     <div className={HomeStyle.navigation}>
-                        <a href="#section1" onClick={() => handleNavItemClick('inicio')}>
-                            <p className={`${HomeStyle.navItensSpace} ${activeNavItem === 'inicio' ? HomeStyle.navItemClicado : HomeStyle.navItem}`}>Ínicio</p>
+                        <a href="#section1" onClick={() => handleNavItemClick('section1')}>
+                            <p className={`${HomeStyle.navItensSpace} ${activeNavItem === 'section1' ? HomeStyle.navItemClicado : HomeStyle.navItem}`}>Ínicio</p>
                         </a>
-                        <a href="#section2" onClick={() => handleNavItemClick('servicos')}>
-                            <p className={`${HomeStyle.navItensSpace} ${activeNavItem === 'servicos' ? HomeStyle.navItemClicado : HomeStyle.navItem}`}>Serviços</p>
+                        <a href="#section2" onClick={() => handleNavItemClick('section2')}>
+                            <p className={`${HomeStyle.navItensSpace} ${activeNavItem === 'section2' ? HomeStyle.navItemClicado : HomeStyle.navItem}`}>Serviços</p>
                         </a>
-                        <a href="#section3" onClick={() => handleNavItemClick('contato')}>
-                            <p className={activeNavItem === 'contato' ? HomeStyle.navItemClicado : HomeStyle.navItem}>Contato</p>
+                        <a href="#section3" onClick={() => handleNavItemClick('section3')}>
+                            <p className={activeNavItem === 'section3' ? HomeStyle.navItemClicado : HomeStyle.navItem}>Fale conosco</p>
                         </a>
                     </div>
                     <div className={HomeStyle.buttons}>
                         <Link to = "/login"><button className={HomeStyle.buttonLeft}>Entrar</button></Link>
-                        <Link to = "/register"><button className={HomeStyle.buttonRight}>Cadastrar-se</button></Link>
                     </div>
                 </header>
                 
@@ -87,10 +108,11 @@ const Home = () => {
                             <h3>Confira abaixo nossos serviços, apresentaremos nossas funcionalidades da plataforma.</h3>
                         </div>
                         <div>
-                            <button className={HomeStyle.buttonSection}>Saiba Mais</button>
+                            <a href="#section2"><button className={HomeStyle.buttonSection}>Saiba Mais</button></a>
                         </div>
                     </div>
                 </section>
+
                 <section className={HomeStyle.information} id='section2'>
                     <div className={HomeStyle.titles}>
                         <div className={HomeStyle.positionTitles}>
@@ -142,7 +164,31 @@ const Home = () => {
                         </div>
                     </div>
                 </section>
-                <footer className={HomeStyle.footerHome} id='section3'>
+
+                <section className={HomeStyle.secForm} id='section3'>
+                    <div className={HomeStyle.spaceForm}>
+                        <h3 className={HomeStyle.fontWord}>Se interessou por nosso sistema? Entre em contato conosco através do formulário abaixo, <br/> preencha os campos e receba mais informações do <span className={HomeStyle.destaque}>Escola+</span></h3>
+                        <form action="" className={HomeStyle.formSec}>
+                            <div className={HomeStyle.formDiv}>
+                                <label htmlFor="" className={HomeStyle.formLabel}>
+                                    <span className={HomeStyle.formSpan}>Nome completo:</span>
+                                    <input type="text" className={HomeStyle.formInput}/>
+                                </label>
+                                <label htmlFor="" className={HomeStyle.formLabel}>
+                                    <span className={HomeStyle.formSpan}>Email:</span>
+                                    <input type="email" className={HomeStyle.formInput}/>
+                                </label>
+                                <label htmlFor="" className={HomeStyle.formLabel}>
+                                    <span className={HomeStyle.formSpan}>Telefone:</span>
+                                    <input type="tel" className={HomeStyle.formInput}/>
+                                </label>
+                            </div>
+                            <button className={HomeStyle.formButton}>Enviar</button>
+                        </form>
+                    </div>
+                </section>
+
+                <footer className={HomeStyle.footerHome}>
                     <div className={HomeStyle.arrow}></div>
                     <div className={HomeStyle.boxConteudoFooter}>
                         <div className={HomeStyle.conteudoFooter}>
