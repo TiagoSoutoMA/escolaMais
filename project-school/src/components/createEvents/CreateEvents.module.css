@@ -1,0 +1,53 @@
+.createDivGeral {
+    margin-top: 80px;
+    margin-left: 200px;
+}
+
+.createTitle {
+    font-family: "Chelsea Market", system-ui;
+}
+
+.createSpaceQuadrado {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.createQuadradoForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: 1px solid black;
+    height: 500px;
+    width: 1000px;
+}
+
+.createSpaceForm {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.createSpaceButton {
+    display: flex;
+    justify-content: end;
+}
+
+.createButton {
+    background-color: #4D73F8;
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    cursor: pointer;
+    font-family: "Chelsea Market", system-ui;
+    border-radius: 5px;
+}
+
+.createLabel {
+    font-family: "Chelsea Market", system-ui;
+}
+
+.createInputText {
+    width: 250px;
+    height: 30px;
+}
