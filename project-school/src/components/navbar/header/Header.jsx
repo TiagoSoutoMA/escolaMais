@@ -36,7 +36,7 @@ const Header = () => {
         <div className={HeaderStyle.icones}>
         <>
         <RxHome/>
-        <PiUsersThree/>
+        <PiUsersThree/> 
         <MdEvent />
         <TbNotebook />
         <BiMessageDetail />

@@ -97,3 +97,16 @@
     height: 15px;
     margin-left: 5px;
 }
+
+.showPasswordButton {
+    position: absolute;
+    right: 290px;
+    bottom: 273px;
+    transform: translateY(-50%);
+    background: transparent; 
+    border: none;
+    cursor: pointer;
+    padding: 5px; 
+    font-size: 20px; 
+    color: #070707;
+}

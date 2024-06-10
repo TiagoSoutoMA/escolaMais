@@ -4,38 +4,31 @@ import Header from '../navbar/header/Header';
 
 const Users = () => {
 
+  const [section, setSection] = useState('search');
+  const [name, setName] = useState('');
+  const [searchResults, setSearchResults] = useState(null);
+  const [error, setError] = useState('');
+ 
+  const [tipoCadastro, setTipoCadastro] = useState('funcionario');
 
-  const [searchParams, setSearchParams] = useState({
-    nome: '',
-    email: ''
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setSearchParams({
-      ...searchParams,
-      [name]: value
-    });
+  const toggleSection = (sectionName) => {
+    setSection(sectionName);
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    pesquisarUsuario(searchParams);
+    pesquisarUsuario(name);
   };
 
-  const pesquisarUsuario = (dadosUsuario) => {
-    const baseUrl = 'http://localhost:8080/users/all';
-
+  const pesquisarUsuario = (name) => {
+    const baseUrl = `http://localhost:8080/teachers/name/${name}`;
     
-    const queryParams = new URLSearchParams(dadosUsuario).toString();
-    const url = `${baseUrl}?${queryParams}`;
-
     const requestOptions = {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' }
     };
 
-    fetch(url, requestOptions)
+    fetch(baseUrl, requestOptions)
       .then(response => {
         if (!response.ok) {
           throw new Error('Usuario nao encontrado');
@@ -43,81 +36,90 @@ const Users = () => {
         return response.json();
       })
       .then(data => {
-        console.log(data);
-        
+        setSearchResults(data);
+        setError('');
       })
       .catch(error => {
         console.error('Erro:', error);
+        setError('Usuario nao encontrado');
+        setSearchResults(null);
       });
   };
 
-
-
-  const [section, setSection] = useState('search');
-  const [userData, setUserData] = useState({
-    name: '',
-    class: '',
-    cpf: '',
-    cargo: '',
-    dataAdmissao: '',
-    estadoCivil: '',
-    genero: '',
-    email: '',
-    telefone: '',
-    dataNascimento: '',
-    endereco: '',
-    numero: '',
-    bairro: '',
-    salario: '',
-    tipoContrato: ''
-  });
-  const [tipoCadastro, setTipoCadastro] = useState('funcionario');
-
-  const toggleSection = (sectionName) => {
-    setSection(sectionName);
-  };
-
-  const handleUserDataChange = (e) => {
-    const { name, value } = e.target;
-    setUserData({
-      ...userData,
-      [name]: value,
-    });
-  };
+ 
 
   const handleTipoChange = (e) => {
     setTipoCadastro(e.target.value);
   };
+  const roleMapping = {
+    ROLE_TEACHER: 'Professor',
+   
+  };
 
-  const [searchResults, setSearchResults] = useState({
-    nome: 'Nome',
-    classe: 'Classe',
-    turma: 'Turma',
-    turno: 'Turno',
-    matricula: 'Matrícula',
-    status: 'Status'
-  });
+  const cadastrarUsuario = (dadosUsuario) => {
+    const url = 'http://localhost:8080/teachers/create';
+  
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dadosUsuario)
+    };
+  
+    fetch(url, requestOptions)
+      .then(response => {
+        console.log(response);
+        if (!response.ok) {
+          throw new Error('Erro ao cadastrar usuário');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Usuário cadastrado com sucesso:', data);
+      })
+      .catch(error => {
+        console.error('Erro ao cadastrar usuário:', error);
+      });
+  }
+
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [role, setRole] = useState(null);
+  const [phone, setPhone] = useState();
 
 
-  const handleUserSubmit = () => {
-    console.log('Dados do usuário a serem cadastrados:', userData);
-    setUserData({
-      name: '',
-      class: '',
-      cpf: '',
-      cargo: '',
-      dataAdmissao: '',
-      estadoCivil: '',
-      genero: '',
-      email: '',
-      telefone: '',
-      dataNascimento: '',
-      endereco: '',
-      numero: '',
-      bairro: '',
-      salario: '',
-      tipoContrato: ''
-    });
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+  
+
+
+    if(!role) {
+      alert('Defina um cargo');
+    } 
+
+    const user = {
+      email,
+      password,
+      role
+    }
+
+    const dadosUsuario = {
+      name,
+      phone,
+      user
+    }
+
+
+    cadastrarUsuario(dadosUsuario);
+
+    setEmail('');
+    setName('');
+    setRole('');
+    setPhone('');
+    setPassword('');
+  
   };
 
   return (
@@ -130,11 +132,12 @@ const Users = () => {
           <button className={UsersStyle.UsersBotao2} onClick={() => toggleSection('add')}>Cadastrar Usuário</button>
         </div>
 
-        {section === 'search' && (
+          {section === 'search' && (
           <>
-            <div className={UsersStyle.Search} onSubmit={handleFormSubmit}>
-              <h2 className={UsersStyle.SearchTitle}>Pesquisar usuários</h2>
-              <label className={UsersStyle.SearchLabel1}>
+            <form onSubmit={handleFormSubmit}>
+              <div className={UsersStyle.Search}>
+                <h2 className={UsersStyle.SearchTitle}>Pesquisar usuários</h2>
+                <label className={UsersStyle.SearchLabel1}>
                 <a>Tipo </a>
                 <select className={UsersStyle.SearchSelect1}>
                   <option value="type1">Tipo 1</option>
@@ -148,45 +151,43 @@ const Users = () => {
                   <option value="class">Turma</option>
                 </select>
               </label>
-              <label className={UsersStyle.SearchLabel1}>
-                <a>Nome </a>
-                <input className={UsersStyle.SearchInput} type="text" name="nome" value={searchParams.nome}
-            onChange={handleInputChange}/>
-              </label>
-              <button className={UsersStyle.SearchButon} onClick={handleUserSubmit}>Pesquisar</button>
-            </div>
-            <div className={UsersStyle.SearchBox}>
-              <a className="results">Resultado</a>
-              <div className={UsersStyle.SearchResult}>
-                <div className={UsersStyle.SearchImage}>
-                  <div className={UsersStyle.SearchInfo}>
-                    <label> Nome: 
-                     {searchResults.nome} 
-                   </label>
-                    <label> Classe:
-                     {searchResults.classe}
-                   </label>
-                    <label> Turma: 
-                     {searchResults.turma}
-                   </label>
-                   <label>Turno:
-                     {searchResults.turno}
-                   </label>
-                   <label>Matrícula:
-                     {searchResults.matricula}
-                   </label>
-                   <label> Status:
-                     {searchResults.status}
-                   </label>              
-                  </div>
-                </div>
+                <label className={UsersStyle.SearchLabel1}>
+                  <span>Nome </span>
+                  <input className={UsersStyle.SearchInput}
+                    type="text"
+                    name="name"
+                    value={name}
+                    onChange={e => setName(e.target.value)} 
+                    placeholder="Enter name"
+                  />
+                </label>
+                <button className={UsersStyle.SearchButon} type='submit'>Pesquisar</button>
               </div>
-            </div>
+            </form>
+
+            {error && <p>{error}</p>}
+
+            {searchResults && (
+              <div className={UsersStyle.SearchBox}>
+                <h3>Resultado:</h3> 
+                  {searchResults.map(result => (
+                    <div key={result.id} className={UsersStyle.SearchResult}>
+                      <div  className={UsersStyle.SearchInfo}> 
+                      <p className={UsersStyle.SearchImage}> </p>
+                      <p>Name: {result.name}</p>
+                      <p>Email: {result.user.email}</p>
+                      <p>Tipo: {roleMapping[result.user.role] || result.user.role}</p>
+                      </div >
+                    </div>
+                  ))}        
+              </div>
+            )}
           </>
         )}
 
         {section === 'add' && (
           <>
+          <form onSubmit={handleSubmit}>
             <label className={UsersStyle.RegisterLabel}>
               <a className={UsersStyle.RegisterType}>Tipo</a>
               <select
@@ -201,6 +202,7 @@ const Users = () => {
               </select>
             </label>
             {tipoCadastro === 'funcionario' && (
+              
               <div className={UsersStyle.FormGroup}>
                 <div className={UsersStyle.HeadTitle}>
                 <h2 className={UsersStyle.FormTitle}>Cadastrar Funcionário</h2>
@@ -211,28 +213,35 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="name"
-                      value={userData.name}
-                      onChange={handleUserDataChange}
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Ex: Maria@gmail.com"
                     />
                   </label>
                   <label>
-                    <a>Cpf: </a>
+                    <a>Senha: </a>
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="cpf"
-                      value={userData.cpf}
-                      onChange={handleUserDataChange}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
                     />
                   </label>
                   <label>
                     <a>Cargo: </a>
                     <select className={UsersStyle.FormInput}
                       name="cargo"
-                      value={userData.cargo}
-                      onChange={handleUserDataChange}
+                      value={role}
+                      onChange={(e) => setRole(e.target.value)}
+                      required
+                      
                     >
-                      <option value="cargo1">Cargo 1</option>
-                      <option value="cargo2">Cargo 2</option>
+                     <option >Selecione...</option>
+              <option  value="ROLE_ADMIN">Administrador</option>
+              <option  value="ROLE_TEACHER">Professor</option>
+              <option  value="ROLE_COORDINATOR">Coordenador</option>  
+              <option  value="ROLE_LEGAL_RESPONSIBLE">Responsável</option>         
                     </select>
                   </label>
                 </div>
@@ -242,16 +251,14 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="dataAdmissao"
-                      value={userData.dataAdmissao}
-                      onChange={handleUserDataChange}
+                      
                     />
                   </label>
                   <label>
                     <a>Estado Civil: </a>
                     <select className={UsersStyle.FormInput}
                       name="estadoCivil"
-                      value={userData.estadoCivil}
-                      onChange={handleUserDataChange}
+                      
                     >
                       <option value="solteiro">Solteiro</option>
                       <option value="casado">Casado</option>
@@ -263,8 +270,7 @@ const Users = () => {
                     <a>Gênero: </a>
                     <select className={UsersStyle.FormInput}
                       name="genero"
-                      value={userData.genero}
-                      onChange={handleUserDataChange}
+                      
                     >
                       <option value="masculino">Masculino</option>
                       <option value="feminino">Feminino</option>
@@ -278,8 +284,10 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="email"
                       name="email"
-                      value={userData.email}
-                      onChange={handleUserDataChange}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Ex: Maria@gmail.com"
+                      required
                     />
                   </label>
                   <label>
@@ -287,8 +295,9 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="tel"
                       name="telefone"
-                      value={userData.telefone}
-                      onChange={handleUserDataChange}
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="Ex: Maria@gmail.com"
                     />
                   </label>
                   <label>
@@ -296,8 +305,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="dataNascimento"
-                      value={userData.dataNascimento}
-                      onChange={handleUserDataChange}
+                      
                     />
                   </label>
                 </div>
@@ -307,8 +315,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="endereco"
-                      value={userData.endereco}
-                      onChange={handleUserDataChange}
+                    
                     />
                   </label>
                   <label>
@@ -316,8 +323,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="numero"
-                      value={userData.numero}
-                      onChange={handleUserDataChange}
+                      
                     />
                   </label>
                   <label>
@@ -325,8 +331,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="bairro"
-                      value={userData.bairro}
-                      onChange={handleUserDataChange}
+                    
                     />
                   </label>
                 </div>
@@ -336,23 +341,21 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="salario"
-                      value={userData.salario}
-                      onChange={handleUserDataChange}
+                      
                     />
                   </label>
                   <label>
                     <a>Tipo de Contrato: </a>
                     <select className={UsersStyle.FormInput}
                       name="tipoContrato"
-                      value={userData.tipoContrato}
-                      onChange={handleUserDataChange}
+                     
                     >
                       <option value="contrato1">Contrato 1</option>
                       <option value="contrato2">Contrato 2</option>
                     </select>
                   </label>
                 </div>
-                <button className={UsersStyle.FormButon} onClick={handleUserSubmit}>Cadastrar</button>
+                <button type="submit" className={UsersStyle.FormButon} >Cadastrar</button>
               </div>
             )}
 
@@ -365,8 +368,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="name"
-                      value={userData.name}
-                      onChange={handleUserDataChange}
+                    
                     />
                   </label>
                   <label>
@@ -374,8 +376,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="cpf"
-                      value={userData.cpf}
-                      onChange={handleUserDataChange}
+                   
                     />
                   </label>
                   <label>
@@ -383,8 +384,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="dataNascimento"
-                      value={userData.dataNascimento}
-                      onChange={handleUserDataChange}
+                     
                     />
                   </label>
                 </div>
@@ -394,16 +394,14 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="dataAdmissao"
-                      value={userData.dataAdmissao}
-                      onChange={handleUserDataChange}
+                     
                     />
                   </label>
                   <label>
                     <a>Estado Civil: </a>
                     <select className={UsersStyle.FormInput}
                       name="estadoCivil"
-                      value={userData.estadoCivil}
-                      onChange={handleUserDataChange}
+                    
                     >
                       <option value="solteiro">Solteiro</option>
                       <option value="casado">Casado</option>
@@ -415,8 +413,7 @@ const Users = () => {
                     <a>Gênero: </a>
                     <select className={UsersStyle.FormInput}
                       name="genero"
-                      value={userData.genero}
-                      onChange={handleUserDataChange}
+                    
                     >
                       <option value="masculino">Masculino</option>
                       <option value="feminino">Feminino</option>
@@ -430,8 +427,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="email"
                       name="email"
-                      value={userData.email}
-                      onChange={handleUserDataChange}
+                     
                     />
                   </label>
                   <label>
@@ -439,8 +435,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="tel"
                       name="telefone"
-                      value={userData.telefone}
-                      onChange={handleUserDataChange}
+                   
                     />
                   </label>
                   <label>
@@ -448,8 +443,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="dataNascimento"
-                      value={userData.dataNascimento}
-                      onChange={handleUserDataChange}
+                     
                     />
                   </label>
                 </div>
@@ -459,8 +453,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="endereco"
-                      value={userData.endereco}
-                      onChange={handleUserDataChange}
+                      
                     />
                   </label>
                   <label>
@@ -468,8 +461,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="numero"
-                      value={userData.numero}
-                      onChange={handleUserDataChange}
+                     
                     />
                   </label>
                   <label>
@@ -477,8 +469,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="bairro"
-                      value={userData.bairro}
-                      onChange={handleUserDataChange}
+                     
                     />
                   </label>
                 </div>
@@ -488,23 +479,21 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="salario"
-                      value={userData.salario}
-                      onChange={handleUserDataChange}
+                  
                     />
                   </label>
                   <label>
                     <a>Tipo de Contrato: </a>
                     <select className={UsersStyle.FormInput}
                       name="tipoContrato"
-                      value={userData.tipoContrato}
-                      onChange={handleUserDataChange}
+                      
                     >
                       <option value="contrato1">Contrato 1</option>
                       <option value="contrato2">Contrato 2</option>
                     </select>
                   </label>
                 </div>
-                <button className={UsersStyle.FormButon} onClick={handleUserSubmit}>Cadastrar</button>
+                <button className={UsersStyle.FormButon} >Cadastrar</button>
               </div>
             )}
 
@@ -517,8 +506,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="name"
-                      value={userData.name}
-                      onChange={handleUserDataChange}
+                   
                     />
                   </label>
                   <label>
@@ -526,8 +514,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="cpf"
-                      value={userData.cpf}
-                      onChange={handleUserDataChange}
+                     
                     />
                   </label>
                   <label>
@@ -535,8 +522,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="dataNascimento"
-                      value={userData.dataNascimento}
-                      onChange={handleUserDataChange}
+                    
                     />
                   </label>
                 </div>
@@ -546,16 +532,14 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="dataAdmissao"
-                      value={userData.dataAdmissao}
-                      onChange={handleUserDataChange}
+                     
                     />
                   </label>
                   <label>
                     <a>Estado Civil: </a>
                     <select className={UsersStyle.FormInput}
                       name="estadoCivil"
-                      value={userData.estadoCivil}
-                      onChange={handleUserDataChange}
+                    
                     >
                       <option value="solteiro">Solteiro</option>
                       <option value="casado">Casado</option>
@@ -567,8 +551,7 @@ const Users = () => {
                     <a>Gênero: </a>
                     <select className={UsersStyle.FormInput}
                       name="genero"
-                      value={userData.genero}
-                      onChange={handleUserDataChange}
+                   
                     >
                       <option value="masculino">Masculino</option>
                       <option value="feminino">Feminino</option>
@@ -582,8 +565,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="email"
                       name="email"
-                      value={userData.email}
-                      onChange={handleUserDataChange}
+                     
                     />
                   </label>
                   <label>
@@ -591,8 +573,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="tel"
                       name="telefone"
-                      value={userData.telefone}
-                      onChange={handleUserDataChange}
+                      
                     />
                   </label>
                   <label>
@@ -600,8 +581,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="dataNascimento"
-                      value={userData.dataNascimento}
-                      onChange={handleUserDataChange}
+                   
                     />
                   </label>
                 </div>
@@ -611,8 +591,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="endereco"
-                      value={userData.endereco}
-                      onChange={handleUserDataChange}
+                    
                     />
                   </label>
                   <label>
@@ -620,8 +599,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="numero"
-                      value={userData.numero}
-                      onChange={handleUserDataChange}
+                    
                     />
                   </label>
                   <label>
@@ -629,8 +607,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="bairro"
-                      value={userData.bairro}
-                      onChange={handleUserDataChange}
+                    
                     />
                   </label>
                 </div>
@@ -639,8 +616,7 @@ const Users = () => {
                     <a>Alunos: </a>
                     <select className={UsersStyle.SelectAlunos}
                       name="estadoCivil"
-                      value={userData.estadoCivil}
-                      onChange={handleUserDataChange}
+                     
                     >
                       <option value="1">1</option>
                       <option value="2">2</option>
@@ -653,8 +629,7 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="salario"
-                      value={userData.salario}
-                      onChange={handleUserDataChange}
+                     
                     />
                   </label>
                   <label>
@@ -662,18 +637,21 @@ const Users = () => {
                     <input className={UsersStyle.FormInput}
                       type="text"
                       name="salario"
-                      value={userData.salario}
-                      onChange={handleUserDataChange}
+                     
                     />
                   </label>
                 </div>
-                <button className={UsersStyle.FormButon} onClick={handleUserSubmit}>Cadastrar</button>
+                <button className={UsersStyle.FormButon}>Cadastrar</button>
               </div>
             )}
+           </form>
+
           </>
         )}
       </div>
+     
     </>
+    
   );
 };
 

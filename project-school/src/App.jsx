@@ -4,7 +4,6 @@ import Events from './components/events/Events.jsx';
 import CreateEvents from './components/createEvents/CreateEvents.jsx';
 import Users from './components/users/Users.jsx'
 import Login from './components/login/Login.jsx';
-import Register from './components/register/Register.jsx';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {

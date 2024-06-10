@@ -14,6 +14,6 @@
 }
 
 
-.itens:first-child {
-    margin-top: 100px;
+.link{
+    text-decoration: none;
 }
