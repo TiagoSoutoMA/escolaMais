@@ -50,7 +50,7 @@ const Login = () => {
             })
             .catch(error => {
                 console.error("Erro:", error);
-                alert("Email ou senha errada!")
+                alert("Email ou senha errada!!!")
             });
     }
 
