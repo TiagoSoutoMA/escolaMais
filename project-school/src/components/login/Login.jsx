@@ -46,13 +46,11 @@ const Login = () => {
                 setRole(data.role);
                 setId(data.id);
                 
-                
-                console.log("token: ", token)
-                console.log("id: ", id)
-                console.log("role: ", role)
+                window.location.href = '/users';
             })
             .catch(error => {
                 console.error("Erro:", error);
+                alert("Email ou senha errada!")
             });
     }
 
