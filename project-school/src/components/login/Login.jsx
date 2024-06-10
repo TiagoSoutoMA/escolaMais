@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import LoginStyle from './Login.module.css';
 import Email from '../../assets/img/icons8-gmail-novo-48.png';
-import { FaEyeSlash } from 'react-icons/fa';
+import {  FaEyeSlash } from 'react-icons/fa';
 import { MdOutlineRemoveRedEye } from "react-icons/md";
-
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -74,6 +73,7 @@ const Login = () => {
                         <div className={LoginStyle.inputGroup}>
                             <label className={LoginStyle.labelName}>Senha:</label>
                             <div className={LoginStyle.passwordInputGroup}>
+
                                 <input
                                     className={LoginStyle.labelNamebox}
                                     type={showPassword ? "text" : "password"}
@@ -88,6 +88,7 @@ const Login = () => {
                                     onClick={togglePasswordVisibility}
                                 >
                                     {showPassword ? <MdOutlineRemoveRedEye /> : <FaEyeSlash />}
+
                                 </button>
                             </div>
                         </div>
