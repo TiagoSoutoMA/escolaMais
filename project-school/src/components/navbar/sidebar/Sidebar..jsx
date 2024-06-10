@@ -1,5 +1,6 @@
 import React from 'react'
 import SidebarStyle from './Sidebar.module.css'
+import { Link } from 'react-router-dom';
 
 import { 
     TbArrowBigLeft , 
@@ -18,10 +19,10 @@ const Sidebar = ({ active }) => {
      <div className={SidebarStyle.svg2}>
       <TbArrowBigLeft onClick={closeSidebar} /> 
      </div> 
-      <div>
-      <SidebarItem    Text="Deshboard" />
-        <SidebarItem  Text="Usuário" />
-        <SidebarItem  Text="Eventos" />
+      <div className={SidebarStyle.names}> 
+        <SidebarItem  Text="Deshboard" />
+        <SidebarItem  Text="Usuário"  to="/users"/>
+        <SidebarItem  Text="Eventos" to ="/createEvents"/> 
         <SidebarItem  Text="Classes" />
         <SidebarItem  Text="Mensagens" />
         <SidebarItem  Text="Calendário" />
