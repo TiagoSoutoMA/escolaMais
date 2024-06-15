@@ -4,6 +4,7 @@ import Events from './components/events/Events.jsx';
 import CreateEvents from './components/createEvents/CreateEvents.jsx';
 import Users from './components/users/Users.jsx'
 import Login from './components/login/Login.jsx';
+import Dashboard from './components/dashboard/Dashboard.jsx'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -16,7 +17,8 @@ function App() {
         <Route path='/events' element={<Events />} />
         <Route path='/createEvents' element={<CreateEvents />} />    
         <Route path = '/login' element = {<Login/>} />  
-        <Route path = '/users' element = {<Users />} />   
+        <Route path = '/users' element = {<Users />} />
+        <Route path='/dashboard' element={<Dashboard />} />   
       </Routes>
     </BrowserRouter>
   )

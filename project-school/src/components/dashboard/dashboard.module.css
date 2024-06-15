@@ -1,0 +1,92 @@
+.dashboardGeral {
+    margin-top: 80px;
+    margin-left: 200px;
+}
+
+.dashboardTitle {
+    font-family: "Chelsea Market", system-ui;
+    margin-bottom: 10px;
+}
+
+.dashboardbanner{
+    width: 1100px;
+    height: 234px;
+    background-image: url(../../assets/img/banner2.png);
+
+}
+
+.dashboardshortcuts{
+    display: flex;
+    margin-top: 50px;
+}
+
+.dashboardRF{
+    width: 255px;
+    height: 160px;
+    background-color: #4C87B9;
+    margin-right: 25px;
+}
+
+.dashboardmenssage{
+    margin-right: 25px;
+    width: 255px;
+    height: 160px;
+    background-color: #3FABA4;
+}
+
+.dashboardRE{
+    margin-right: 25px;
+    width: 255px;
+    height: 160px;
+    background-color: #32C5D2;
+}
+
+.dashboardrequests{
+    width: 255px;
+    height: 160px;
+    background-color: #E8555F;
+}
+
+.dashboardresume{
+    margin-top: 50px;
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.dashboardcalendar{
+    width: 255px;
+    height: 160px;
+    margin-right: 25px;
+    border: 1px solid;
+}
+
+.dashboardCE{
+    width: 815px;
+    height: 160px;
+
+    margin-right: 25px;
+    border: 1px solid;
+}
+
+.dashboardText{
+    color: white;
+    text-align: center;
+    margin-top: 50px;
+    font-size: 18px;
+    font-family: "Chelsea Market", system-ui;
+}
+
+.dashboardText1{
+    font-family: "Chelsea Market", system-ui;
+    color: black;
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.dashboardText2{
+    font-family: "Chelsea Market", system-ui;
+    color: black;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+

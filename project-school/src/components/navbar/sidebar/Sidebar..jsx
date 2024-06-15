@@ -20,7 +20,7 @@ const Sidebar = ({ active }) => {
       <TbArrowBigLeft onClick={closeSidebar} /> 
      </div> 
       <div className={SidebarStyle.names}> 
-        <SidebarItem  Text="Deshboard" />
+        <SidebarItem  Text="Deshboard" to="/dashboard" />
         <SidebarItem  Text="Usuário"  to="/users"/>
         <SidebarItem  Text="Eventos" to ="/createEvents"/> 
         <SidebarItem  Text="Classes" />
