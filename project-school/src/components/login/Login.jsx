@@ -45,7 +45,7 @@ const Login = () => {
                 setRole(data.role);
                 setId(data.id);
                 
-                window.location.href = '/users';
+                window.location.href = '/dashboard';
             })
             .catch(error => {
                 console.error("Erro:", error);
